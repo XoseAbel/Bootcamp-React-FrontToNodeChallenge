@@ -33,7 +33,13 @@ const useStyles = makeStyles({
 });
 
 const AddNewUser = () => {
-  const [newUser, setNewUser] = useState<newUserInterface>();
+  const [newUser, setNewUser] = useState<newUserInterface>({
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    condition: 'unknown',
+  });
   const [tryAgain, setTryAgain] = useState<boolean>(false);
   const [resultApi, setResultApi] = useState<any>();
 
@@ -78,11 +84,13 @@ const AddNewUser = () => {
             <Grid33>
               <InputField
                 id='name'
+                val={newUser.name}
                 label='Name'
                 fnChange={(event: any) => updateNewUser(event, 'name')}
               />
               <InputField
                 id='surname'
+                val={newUser.surname}
                 label='Surname'
                 fnChange={(event: any) => updateNewUser(event, 'surname')}
               />
@@ -90,11 +98,13 @@ const AddNewUser = () => {
             <Grid33>
               <InputField
                 id='email'
+                val={newUser.email}
                 label='Email'
                 fnChange={(event: any) => updateNewUser(event, 'email')}
               />
               <InputField
                 id='password'
+                val={newUser.password}
                 label='Password'
                 fnChange={(event: any) => updateNewUser(event, 'password')}
               />
@@ -102,6 +112,7 @@ const AddNewUser = () => {
             <Grid33>
               <SelectInput
                 id='condition'
+                val={newUser.condition}
                 option={OPTIONS_CONDITION}
                 fnChange={(event: any) => updateNewUser(event, 'condition')}
               />
@@ -136,6 +147,7 @@ const AddNewUser = () => {
           </Button>
         </>
       )}
+
       {tryAgain && resultApi && (
         <ResultAddUser data={resultApi} refreshFn={() => setTryAgain(false)} />
       )}

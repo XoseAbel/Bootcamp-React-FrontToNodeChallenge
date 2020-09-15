@@ -6,6 +6,7 @@ import { NotFound } from '../Components/Pages/Error/NotFound/NotFound';
 import { Statistics } from '../Components/Pages/Statistics';
 import { LoginUser } from '../Components/Pages/LoginUser';
 import { TODOList } from '../Components/Pages/TODOList.tsx';
+import { FormValidationSchema } from '../Components/Pages/FormValidationSchema';
 
 const Routes = () => {
   return (
@@ -15,6 +16,9 @@ const Routes = () => {
       </Route>
       <Route exact path='/newUser'>
         <AddNewUser />
+      </Route>
+      <Route exact path='/validationSchema'>
+        <FormValidationSchema />
       </Route>
       <Route exact path='/statistics'>
         <Statistics />

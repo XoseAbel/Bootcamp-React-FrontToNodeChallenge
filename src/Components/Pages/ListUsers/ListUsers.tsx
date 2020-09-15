@@ -22,6 +22,8 @@ import {
   saveUsers,
   toggleLoading,
 } from '../../../Redux/users/userSlice';
+import SkeletonRow from './components/Skeleton';
+import { SelectCondition } from './components/SelectCondition';
 
 const useStyles = makeStyles({
   colorText: {
@@ -47,11 +49,10 @@ const ListUsers = () => {
   const dispatch = useDispatch();
 
   //funcion que llama a la API
-  const callApi = async () => {
+  const callApi = async (condition: string = '') => {
     try {
       dispatch(toggleLoading());
-      // const result = await connectWithApi('/hola', GET);
-      const result = await connectWithApi(USERS_URL, GET);
+      const result = await connectWithApi(`${USERS_URL}${condition}`, GET);
       dispatch(saveUsers(result.data));
     } catch (error) {
       if (error === 404) {
@@ -73,16 +74,29 @@ const ListUsers = () => {
     history.push(url);
   };
 
+  //manejamos la seleccion de condiccion
+  const handleCondition = (condition: any) => {
+    const filter = `?condition=${condition}`;
+    callApi(filter);
+  };
+
   //extraemos nuestro estilo
   const classes = useStyles();
   return (
     <Container className={classes.marginContainer}>
-      <TitleColor text={'List Active Users'} />
+      <Grid container direction='row' alignItems='flex-start' justify='center'>
+        <Grid item sm={12} md={8}>
+          <TitleColor text={'List Active Users'} />
+        </Grid>
+        <Grid item sm={12} md={4}>
+          <SelectCondition fnCondition={handleCondition} />
+        </Grid>
+      </Grid>
       <TableContainer component={Paper}>
         <Table aria-label='simple table'>
           <THead />
           {isLoading ? (
-            <p>Cargando....</p>
+            <SkeletonRow qty={9} />
           ) : (
             listUsers && <TBody data={listUsers}></TBody>
           )}

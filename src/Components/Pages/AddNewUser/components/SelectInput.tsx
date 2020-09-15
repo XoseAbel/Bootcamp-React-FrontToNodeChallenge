@@ -13,7 +13,12 @@ const useStyles = makeStyles({
 const SelectInput = (props: any) => {
   const classes = useStyles();
   return (
-    <Select className={classes.size} name={props.id} onChange={props.fnChange}>
+    <Select
+      value={props.val}
+      className={classes.size}
+      name={props.id}
+      onChange={props.fnChange}
+    >
       {props.option.map((condition: any, index: number) => (
         <MenuItem key={'condition' + index} value={condition}>
           {condition}
